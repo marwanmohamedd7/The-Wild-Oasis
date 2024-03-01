@@ -1,9 +1,14 @@
+import { useGetBookings } from "./useGetBookings";
 import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+import Empty from "../../ui/Empty";
+import Spinner from "../../ui/Spinner";
 
 function BookingTable() {
-  const bookings = [];
+  const { bookings, isLoading } = useGetBookings()
+  if (isLoading) return <Spinner />
+  if (!bookings.length) return <Empty resourceName={"booking"} />
 
   return (
     <Menus>
