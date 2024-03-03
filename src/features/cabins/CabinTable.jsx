@@ -5,6 +5,8 @@ import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
 import Empty from "../../ui/Empty";
+import Pagination from "../../ui/Pagination";
+import { PAGE_SIZE } from "../../utils/constants";
 
 // const TableHeader = styled.header`
 //   display: grid;
@@ -23,7 +25,7 @@ import Empty from "../../ui/Empty";
 
 function CabinTable() {
   const { isLoading, cabins, error } = useGetCabins();
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   if (isLoading) return <Spinner />;
   if (!cabins.length) return <Empty resourceName={"cabins"} />
 
@@ -36,12 +38,14 @@ function CabinTable() {
   if (filterValue === 'no-discount') filterCabins = cabins.filter(cabin => cabin.discount === 0)
   if (filterValue === 'with-discount') filterCabins = cabins.filter(cabin => cabin.discount > 0)
 
-  const sortBy = searchParams.get('sortBy') || "startDate-asc";
   // Sorting function based on URL parameter
+  const sortBy = searchParams.get('sortBy') || "startDate-asc";
   const [field, direction] = sortBy.split("-")
-  // console.log(field, direction)
   const modifier = direction === "asc" ? 1 : -1;
   const sortcabins = filterCabins.sort((a, b) => (a[field] - b[field]) * modifier)
+
+  // Pagination 
+
   return (
     <Menus>
       <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
@@ -57,6 +61,9 @@ function CabinTable() {
           data={sortcabins}
           render={(cabin) => <CabinRow key={cabin.id} cabin={cabin} />}
         />
+        <Table.Footer>
+          {/* <Pagination count={countPage} /> */}
+        </Table.Footer>
       </Table>
     </Menus>
   );
