@@ -12,7 +12,6 @@ import ButtonText from "../../ui/ButtonText";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { useGetBooking } from "./useGetBooking";
 import { useNavigate } from "react-router-dom";
-import CheckoutButton from "../check-in-out/CheckoutButton";
 import { useCheckout } from "../check-in-out/useCheckout";
 import { HiArrowUpOnSquare } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
