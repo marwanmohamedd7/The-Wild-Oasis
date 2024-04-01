@@ -10,5 +10,5 @@ export function useGetCabins() {
     queryKey: ["cabins"],
     queryFn: getCabins,
   });
-  return { isLoading, cabins, error };
+  return { cabins, error, isLoading };
 }
