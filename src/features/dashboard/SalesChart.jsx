@@ -3,7 +3,7 @@ import DashboardBox from "./DashboardBox";
 import Heading from "../../ui/Heading";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useDarkMode } from "../../context/DarkModeProvider";
-import { eachDayOfInterval, format, formatISO, isSameDay, subDays } from "date-fns";
+import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
 
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
@@ -22,7 +22,7 @@ function SalesChart({ bookings, numDays }) {
     start: subDays(new Date(), numDays - 1),
     end: new Date(),
   });
-  
+
   const data = allDates.map(date => {
     return {
       label: format(date, "MMM dd"),
@@ -49,7 +49,7 @@ function SalesChart({ bookings, numDays }) {
 
   return (
     <StyledSalesChart>
-      <Heading as="h2">Sales from {format(allDates.at(0),'MMM dd yyyy')} &mdash; {format(allDates.at(-1),'MMM dd yyyy')}</Heading>
+      <Heading as="h2">Sales from {format(allDates.at(0), 'MMM dd yyyy')} &mdash; {format(allDates.at(-1), 'MMM dd yyyy')}</Heading>
       <ResponsiveContainer height={300} width="100%">
         <AreaChart data={data}>
           <XAxis
